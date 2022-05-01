@@ -1,5 +1,29 @@
+-- This file is part of ComposedVainError.
+--
+-- ComposedVainError is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License, version 3, as published by
+-- the Free Software Foundation.
+--
+-- ComposedVainError is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+-- FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+-- more details.
+--
+-- You should have received a copy of the GNU General Public License along with
+-- ComposedVainError. If not, see <https://www.gnu.org/licenses/>.
+--
+-- Copyright 2022 Tanner Swett.
+
 import Data.Char (isLetter, isNumber, isSpace)
 import Data.List (nubBy)
+
+main = do
+    putStr "> "
+    expr <- getLine
+    case readEval expr of
+        Left err -> putStrLn ("error: " ++ err)
+        Right result -> print result
+    main
 
 data LispValue = LispAtom String | LispList [LispValue] | LispLambda Environment [String] LispValue
 type Environment = [(String, LispValue)]
